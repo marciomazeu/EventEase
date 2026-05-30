@@ -1,0 +1,41 @@
+
+@page "/registration"
+@using EventEase.Models
+
+<h3>Inscrição no Evento</h3>
+
+<EditForm Model="@registration" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger" />
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="name">Nome Completo:</label>
+        <InputText id="name" class="form-control" @bind-Value="registration.Name" />
+    </div>
+
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="email">E-mail:</label>
+        <InputText id="email" class="form-control" @bind-Value="registration.Email" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Confirmar Inscrição</button>
+    <NavLink class="btn btn-secondary" href="/">Cancelar</NavLink>
+</EditForm>
+
+@if (isSubmitted)
+{
+    <div class="alert alert-success" style="margin-top: 15px;">
+        Inscrição realizada com sucesso para @registration.Name!
+    </div>
+}
+
+@code {
+    private RegistrationModel registration = new();
+    private bool isSubmitted = false;
+
+    private void HandleValidSubmit()
+    {
+        isSubmitted = true;
+        // Aqui entraria a lógica de persistência ou envio para API
+    }
+}

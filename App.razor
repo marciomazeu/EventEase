@@ -1,0 +1,16 @@
+﻿<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Não Encontrado</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <div style="padding: 20px; text-align: center;">
+                <h3>Ops! Página não encontrada.</h3>
+                <p>O caminho que você tentou acessar não existe no EventEase.</p>
+                <a class="btn btn-primary" href="/">Voltar para a Página Inicial</a>
+            </div>
+        </LayoutView>
+    </NotFound>
+</Router>

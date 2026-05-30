@@ -1,0 +1,46 @@
+@using EventEase.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="card" style="width: 18rem; margin: 10px; border: 1px solid #ccc; padding: 15px; border-radius: 8px;">
+    <div class="card-body">
+        <h5 class="card-title">@(string.IsNullOrWhiteSpace(EventData.Name) ? "Nome Indisponível" : EventData.Name)</h5>
+        <p class="card-text"><strong>Data:</strong> @EventData.Date.ToShortDateString()</p>
+        <p class="card-text"><strong>Local:</strong> @(string.IsNullOrWhiteSpace(EventData.Location) ? "Local Não Informado" : EventData.Location)</p>
+    </div>
+    
+    <hr />
+    
+    <div class="form-group" style="margin-top: 10px;">
+        <label>Editar Nome:</label>
+        <input class="form-control" value="@EventData.Name" @oninput="HandleNameInput" />
+    </div>
+    <div class="form-group" style="margin-top: 5px;">
+        <label>Editar Local:</label>
+        <input class="form-control" value="@EventData.Location" @oninput="HandleLocationInput" />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventModel EventData { get; set; } = new EventModel();
+
+    // Métodos para interceptar e validar a entrada do usuário
+    private void HandleNameInput(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        // Impede que o nome seja puramente espaços em branco
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            EventData.Name = value;
+        }
+    }
+
+    private void HandleLocationInput(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString();
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            EventData.Location = value;
+        }
+    }
+}
